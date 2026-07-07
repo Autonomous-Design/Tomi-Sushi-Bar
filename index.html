@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Autonomous Design — Bientôt disponible</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #0a0a0a;
+      color: #fff;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 48px;
+    }
+
+    .brand {
+      font-size: 13px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #555;
+    }
+
+    .timer {
+      display: flex;
+      gap: 40px;
+      align-items: flex-end;
+    }
+
+    .unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .digits {
+      font-size: clamp(64px, 12vw, 140px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+      transition: opacity 0.15s;
+      color: #ff2222;
+    }
+
+    .label {
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #444;
+    }
+
+    .separator {
+      font-size: clamp(48px, 10vw, 120px);
+      font-weight: 700;
+      line-height: 1;
+      color: #222;
+      padding-bottom: 18px;
+    }
+
+    .tagline {
+      font-size: 13px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #333;
+    }
+
+    .dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #fff;
+      opacity: 0.15;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="brand">Autonomous Design</div>
+
+  <div class="timer">
+    <div class="unit">
+      <div class="digits" id="hours">10</div>
+      <div class="label">Heures</div>
+    </div>
+    <div class="separator">:</div>
+    <div class="unit">
+      <div class="digits" id="minutes">00</div>
+      <div class="label">Minutes</div>
+    </div>
+    <div class="separator">:</div>
+    <div class="unit">
+      <div class="digits" id="seconds">00</div>
+      <div class="label">Secondes</div>
+    </div>
+  </div>
+
+  <div class="tagline">Site bientôt disponible</div>
+
+  <script>
+    const total = 10 * 60 * 60;
+    let remaining = total;
+
+    const pad = n => String(n).padStart(2, '0');
+
+    function tick() {
+      if (remaining <= 0) {
+        document.querySelector('.tagline').textContent = 'Bienvenue.';
+        return;
+      }
+      remaining--;
+      const h = Math.floor(remaining / 3600);
+      const m = Math.floor((remaining % 3600) / 60);
+      const s = remaining % 60;
+      document.getElementById('hours').textContent = pad(h);
+      document.getElementById('minutes').textContent = pad(m);
+      document.getElementById('seconds').textContent = pad(s);
+    }
+
+    setInterval(tick, 1000);
+  </script>
+
+</body>
+</html>
